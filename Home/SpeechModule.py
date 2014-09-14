@@ -28,27 +28,6 @@ def checkio(number):
         str_u = FIRST_TEN[number]
         
     return (str_h+str_d+str_u).rstrip()
-    
-    """            
-    if number <= 20:
-        return NUMBERS[number]
-    elif number < 100:
-        return NUMBERS[number-number%10]+' '*(number%10 is not 0)+NUMBERS[number%10]
-    else:
-        hundred = number//100
-        tenth   = number - hundred*100
-        #print tenth
-        str_h = NUMBERS[hundred] + ' hundred'
-        #print str_h
-        if tenth <= 20:
-            str_d = ' ' + NUMBERS[tenth]
-            str_u = ' '
-        else:
-            str_d   = ' ' + NUMBERS[tenth-tenth%10]
-            #print str_d
-            str_u   = ' ' + NUMBERS[tenth%10]
-        return str_h + str_d*(str_d is not ' ') + str_u*(str_u is not ' ')
-       """ 
 
 print checkio(4)=='four'
 print checkio(143)=='one hundred forty three'
