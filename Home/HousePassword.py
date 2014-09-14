@@ -9,31 +9,16 @@ def checkio(data):
     if len(data) < 10:
         return False
         
-    digit = False
+    digit, upper, lower = False, False, False    
     for i in data:
         if i.isdigit():
             digit = True
-            break
-    if digit == False:
-        return False
-            
-    upper = False
-    for i in data:
         if i.isupper():
             upper = True
-            break
-    if upper == False:
-        return False
-
-    lower = False
-    for i in data:
         if i.islower():
             lower = True
-            break
-    if lower == False:
-        return False
-    
-    return True
+            
+    return digit and upper and lower
 
 print checkio('A1213pokl') == False
 print checkio('bAse730onE') == True
