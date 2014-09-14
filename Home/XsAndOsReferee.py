@@ -35,3 +35,16 @@ print checkio([
     "OOX",
     "XXO",
     "OXX"]) == "D"
+    
+""" Example solution (better way):
+def checkio(game_result):
+    transposed = ["".join(x) for x in zip(*game_result)]
+    diagonal = ["".join([game_result[i][i] for i in range(3)]),
+                "".join([game_result[i][2-i] for i in range(3)])]
+    for triplet in game_result + transposed + diagonal:
+        if triplet == "OOO":
+            return "O"
+        elif triplet == "XXX":
+            return "X"
+    return "D"    
+"""
