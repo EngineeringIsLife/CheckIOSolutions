@@ -8,15 +8,8 @@ Created on Wed Sep 17 17:57:12 2014
 from types import GeneratorType
 
 def min(*args, **fcn_in):
-    lastlevel = args[0] if len(args) is 1 else args
-    if isinstance(lastlevel, set):
-        lastlevel = list(lastlevel)
-        best = lastlevel[0]
-    elif isinstance(lastlevel, GeneratorType):
-        best = lastlevel.next()
-    else:
-        best = lastlevel[0]
-    
+    lastlevel = iter(args[0] if len(args) is 1 else args)
+    best = next(lastlevel)
     fcn = fcn_in["key"] if fcn_in else lambda x: x
     for arg in lastlevel:
         if fcn(arg) < fcn(best):
@@ -24,14 +17,8 @@ def min(*args, **fcn_in):
     return best
     
 def max(*args, **fcn_in):
-    lastlevel = args[0] if len(args) is 1 else args
-    if isinstance(lastlevel, set):
-        lastlevel = list(lastlevel)
-        best = lastlevel[0]
-    elif isinstance(lastlevel, GeneratorType):
-        best = lastlevel.next()
-    else:
-        best = lastlevel[0]
+    lastlevel = iter(args[0] if len(args) is 1 else args)
+    best = next(lastlevel)
     fcn = fcn_in["key"] if fcn_in else lambda x: x
     for arg in lastlevel:
         if fcn(arg) > fcn(best):
