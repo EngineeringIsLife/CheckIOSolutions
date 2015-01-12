@@ -5,8 +5,6 @@ Created on Wed Sep 17 17:57:12 2014
 @author: EngineeringIsLife
 """
 
-from types import GeneratorType
-
 def min(*args, **fcn_in):
     lastlevel = iter(args[0] if len(args) is 1 else args)
     best = next(lastlevel)
