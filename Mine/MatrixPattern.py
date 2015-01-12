@@ -4,52 +4,41 @@ Created on Sun Dec 28 21:26:04 2014
 
 @author: EngineeringIsLife
 """
-def checkpatternline(patternline, line):
-    psize = len(patternline)
-    lsize = len(line)
-    pos = []
-    for i in range(lsize):
-        if patternline == line[i:i+psize]:
-            pos.append(i)
-            i += psize
-    return pos
 
-# Working for specific cases - still not fully functional
+
+# from itertools import product -> can replace 2-dimensional for-loops
+# example: for x,y in product(range(sizex), range(sizey)) ... iterates over
+# every possible element.
+
 def checkio(pattern, image):
-    s = len(pattern[0])
-    l = len(image[0])
-    #print "s: ", s
-    #print "l: ", l
-    for rowcount, row in enumerate(image):
-        if rowcount == l-1: break
-        #print "Vorher: ", row
-        for i in range(l-s+1):
-            if image[rowcount][i:i+s] == pattern[0] and image[rowcount+1][i:i+s] == pattern[1]:
-                for j in range(s):
-                    image[rowcount+0][i+j] += 2
-                    image[rowcount+1][i+j] += 2
-        #print "Nachher: ", row
-    #print image
-    return image            
-            
-"""
-def checkio(pattern, image):
-    s = len(pattern[0])
-    l = len(image[0])
-    #print "s: ", s
-    #print "l: ", l
-    for rowcount, row in enumerate(image):
-        if rowcount == l-1: break
-        #print "Vorher: ", row
-        for i in range(l-s+1):
-            if image[rowcount][i:i+s] == pattern[0] and image[rowcount+1][i:i+s] == pattern[1]:
-                for j in range(s):
-                    image[rowcount+0][i+j] += 2
-                    image[rowcount+1][i+j] += 2
-        #print "Nachher: ", row
-    #print image
-    return image
-"""
+    # Get dimensions
+    psizex, psizey = len(pattern[0]), len(pattern)
+    isizex, isizey = len(image[0]),   len(image)
+    
+    # Split in rows and columns
+    imgrows, imgcols = image,   zip(*image)
+    patrows, patcols = pattern, zip(*pattern)
+    
+    # Iterate through image
+    for posx in range(isizex-psizex+1):
+        for posy in range(isizey-psizey+1):
+            match = 1   # Remains 1 as long as no dismatch appeared
+            for i in range(psizey): # Check rows in current snippet
+                if imgrows[posy+i][posx:posx+psizex] != patrows[i]:
+                    match = 0
+                    break
+            for i in range(psizex): # Check columns in current snippet
+                if imgcols[posx+i][posy:posy+psizey] != patcols[i] or match == 0:
+                    match = 0
+                    break
+                
+            if match:   # Match detected - Mark image
+                for i in range(psizey):
+                    for j in range(psizex):
+                        imgrows[posy+i][posx+j] += 2
+                imgcols = zip(*imgrows) # Update columns
+    return imgrows
+    
 
 print checkio([[1, 0], [1, 1]],
         [[0, 1, 0, 1, 0],
@@ -68,4 +57,3 @@ print checkio([[1, 1], [1, 1]],
          [1, 1, 1]]) == [[3, 3, 1],
                          [3, 3, 1],
                          [1, 1, 1]]
-                         
