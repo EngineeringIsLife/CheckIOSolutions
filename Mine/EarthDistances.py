@@ -25,7 +25,7 @@ def distance(position1, position2):
     long1_deg *= -1 if long1[3] == 'E' else 1
     long2_deg *= -1 if long2[3] == 'E' else 1
     
-    # Seitenkosinussatz
+    # Seitenkosinussatz - http://de.wikipedia.org/wiki/Sph%C3%A4rische_Trigonometrie#Seiten-Kosinussatz
     cos_x = sin(lat1_deg) * sin(lat2_deg) + cos(lat1_deg) * cos(lat2_deg) * cos(long2_deg - long1_deg)
     dist = acos(cos_x) * R
     
